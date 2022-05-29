@@ -76,6 +76,6 @@ jobs:
         - name: Get task definition
           run: |
             echo $CONTAINER
-            aws ecs describe-task-definition --task-definition "${{ env.CONTAINER }}" --query "taskDefinition" > "${{ env.TASK_DEFINITION_FILE }}" --region "${{ env.AWS_REGION }}"
+            aws ecs describe-task-definition --task-definition "${ENVIRONMENT}-container-name-app-python" --query "taskDefinition" > "${{ env.TASK_DEFINITION_FILE }}" --region "${{ env.AWS_REGION }}"
             cat .github/ecs-karafka-task-definition.json
             echo $TASK_DEFINITION_FILE
