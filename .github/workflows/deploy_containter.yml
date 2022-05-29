@@ -77,5 +77,5 @@ jobs:
           run: |
             echo $CONTAINER
             aws ecs describe-task-definition --task-definition "${ENVIRONMENT}-container-name-app-python" --query "taskDefinition" > "${{ env.TASK_DEFINITION_FILE }}" --region "${{ env.AWS_REGION }}"
-            cat .github/ecs-karafka-task-definition.json
+            cat ${{ env.TASK_DEFINITION_FILE }}
             echo $TASK_DEFINITION_FILE
