@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 env:
-  ECS_CLUSTER: "cluster1"
+  ECS_CLUSTER: "cluster"
   AWS_REGION: "us-east-1"
   ECR_REGISTRY: "515411507312.dkr.ecr.us-east-1.amazonaws.com"
   ENVIRONMENT: "dev"
@@ -101,6 +101,6 @@ jobs:
           with:
             task-definition: ${{ steps.render-scheduler-container.outputs.task-definition }}
             service: ${{ needs.set-parameters.outputs.service_name }}
-            cluster: "${{ env.ECS_CLUSTER }}"
+            cluster: "${{ env.ENVIRONMENT }}-${{ env.ECS_CLUSTER }}"
             wait-for-service-stability: true
             wait-for-minutes: 8
