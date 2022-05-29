@@ -79,3 +79,15 @@ jobs:
             aws ecs describe-task-definition --task-definition "${ENVIRONMENT}-container-name-app-python" --query "taskDefinition" > "${{ env.TASK_DEFINITION_FILE }}" --region "${{ env.AWS_REGION }}"
             cat ${{ env.TASK_DEFINITION_FILE }}
             echo $TASK_DEFINITION_FILE
+            
+        - name: Render Amazon ECS task definition with scheduler container
+          id: render-scheduler-container
+          uses: aws-actions/amazon-ecs-render-task-definition@v1
+          with:
+            task-definition: ${{ env.TASK_DEFINITION_FILE }}
+            container-name: "${{ env.CONTAINER }}"
+            image: "${{ env.ECR_REGISTRY }}/${{ needs.set-parameters.outputs.docker_repo }}:${{ needs.set-parameters.outputs.commit_sha }}"
+
+        - name: cat scheduler task
+          run: |
+            cat ${{ steps.render-scheduler-container.outputs.task-definition }}
