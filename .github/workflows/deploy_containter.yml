@@ -59,7 +59,7 @@ jobs:
       runs-on: ubuntu-latest
       needs: [ build-and-push, set-parameters ]
       env:
-        CONTAINER_NAME: ${{ needs.set-parameters.outputs.container_name }}      
+        CONTAINER: ${{ needs.set-parameters.outputs.container_name }}      
         TASK_DEFINITION_FILE: ".github/task-definition.json"
       steps:
         - name: Checkout
@@ -75,7 +75,7 @@ jobs:
         
         - name: Get task definition
           run: |
-            echo $CONTAINER_NAME
-            aws ecs describe-task-definition --task-definition "${{ env.CONTAINER_NAME }}" --query "taskDefinition" > "${{ env.TASK_DEFINITION_FILE }}" --region "${{ env.AWS_REGION }}"
+            echo $CONTAINER
+            aws ecs describe-task-definition --task-definition "${{ env.CONTAINER }}" --query "taskDefinition" > "${{ env.TASK_DEFINITION_FILE }}" --region "${{ env.AWS_REGION }}"
             cat .github/ecs-karafka-task-definition.json
             echo $TASK_DEFINITION_FILE
