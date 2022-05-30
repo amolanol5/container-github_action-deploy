@@ -80,7 +80,7 @@ jobs:
         - name: Get task definition
           run: |
             echo $CONTAINER
-            aws ecs describe-task-definition --task-definition "${{ env.CONTAINER }}" --query "taskDefinition" > "${{ env.TASK_DEFINITION_FILE }}" --region "${{ env.AWS_REGION }}"
+            aws ecs describe-task-definition --task-definition "${{ env.CONTAINER }}:4" --query "taskDefinition" > "${{ env.TASK_DEFINITION_FILE }}" --region "${{ env.AWS_REGION }}"
             cat ${{ env.TASK_DEFINITION_FILE }}
             echo $TASK_DEFINITION_FILE
 
