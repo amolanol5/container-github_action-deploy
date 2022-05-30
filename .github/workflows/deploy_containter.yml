@@ -103,4 +103,4 @@ jobs:
             service: ${{ needs.set-parameters.outputs.service_name }}
             cluster: "${{ env.ENVIRONMENT }}-${{ env.ECS_CLUSTER }}"
             wait-for-service-stability: true
-            wait-for-minutes: 3
+            wait-for-minutes: 8
